@@ -7,10 +7,10 @@ public enum UrlEnum {
     DAILY_TRENDING_TOP("https://api.themoviedb.org/3/trending/movie/day?api_key="),
     
     // API MOCK TOP CATEGORIAS
-    TOP_250_TV("https://api.mocki.io/v2/549a5d8b/Top250TVs"),
-    TOP_250_MOVIES("https://api.mocki.io/v2/549a5d8b/Top250Movies"),
-    TOP_POPULAR_MOVIES("https://api.mocki.io/v2/549a5d8b/MostPopularMovies"),
-    TOP_MOST_POPULAR_TV("https://api.mocki.io/v2/549a5d8b/MostPopularTVs"),
+    API_MOCK_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
+//    TOP_250_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
+//    TOP_POPULAR_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
+//    TOP_MOST_POPULAR_TV("https://api.mocki.io/v2/549a5d8b/"),
 
 
     //COMPLEMENTO DE URL DA IMAGEM
