@@ -8,10 +8,11 @@ public enum Cores {
     MAGENTA("\u001b[44;1m"),
     FIM("\u001b[0m"), 
     GREEN("\u001b[42;1m"),
-
-
     //Cores do Texto:
-    GREEN_Text("\u001b[32;1m");
+    GREEN_Text("\u001b[32;1m"),
+
+    //Emojis
+    STAR("\u2b50");
 
     Cores(String code) {
       this.code = code;

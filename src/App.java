@@ -112,7 +112,7 @@ public class App {
             long roundedRating = Math.round(RatingDouble);
             System.out.println(Cores.CYAN +"Classificação: " + Cores.FIM + Rating);
             for (int i = 0; i < roundedRating; i++) {
-                System.out.print("\u2b50");
+                System.out.print(Cores.STAR);
             }
            System.out.println("");
         }
