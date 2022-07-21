@@ -12,6 +12,12 @@ import java.awt.font.TextLayout;
 import java.awt.BasicStroke;
 
 import javax.imageio.ImageIO;
+import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import Enum.Cores;
 
 public class FabricaDeFigurinhas {
 
@@ -23,31 +29,28 @@ public class FabricaDeFigurinhas {
 
     public void cria(InputStream inputStream, String nomeArquivo, String Rating) throws Exception {
 
+        double rating = Double.parseDouble(Rating);
+
+
         // leitura da imagem
         BufferedImage imagemOriginal = ImageIO.read(inputStream);
-        altura = imagemOriginal.getHeight();
-        double rating = Double.parseDouble(Rating);
-        larguraOriginal = imagemOriginal.getWidth();
-        novaAltura = altura + 200;
+        Image imagemMenor = imagemOriginal.getScaledInstance(300, 400, Image.SCALE_SMOOTH);
+        
+        altura = imagemMenor.getHeight(null);
+        larguraOriginal = imagemMenor.getWidth(null);
+        novaAltura = altura + 100;
         this.stickerText = getStickerText(rating);
         this.nomeArquivo = nomeArquivo;
-        Redimensiona(imagemOriginal);
-        drawSticker(imagemOriginal);
-        
+        drawSticker(imagemMenor);
 
     }
-
-    public void Redimensiona(BufferedImage imagemOriginal) {
-
-    Image image = imagemOriginal.getScaledInstance(300, 100, Image.SCALE_DEFAULT);
-    writeImage((BufferedImage) image);
-    }
+    
     // cria nova imagem em memoria com transparencia e com tamanho novo
 
-    private void drawSticker(BufferedImage imagemOriginal) {
+    private void drawSticker(Image imagemMenor) {
         BufferedImage novaImagem = new BufferedImage(larguraOriginal, novaAltura, BufferedImage.TRANSLUCENT);
         Graphics2D graphics = (Graphics2D) novaImagem.getGraphics();
-        graphics.drawImage(imagemOriginal, 0, 0, null);
+        graphics.drawImage(imagemMenor, 0, 0, null);        
         drawStickerText(graphics);
         writeImage(novaImagem);
 
@@ -56,20 +59,21 @@ public class FabricaDeFigurinhas {
     private void drawStickerText(Graphics2D graphics) {
         // Configura a fonte
         int increaseHeight = novaAltura - altura;
-        int fontSize = (int) Math.floor(increaseHeight * 0.9);
-        Font font = new java.awt.Font("Comic Sans", java.awt.Font.BOLD, fontSize);
+        int fontSize = (int) Math.floor(increaseHeight * 0.7 )-9;
+        Font font = new Font("Comic Sans", Font.BOLD, fontSize);
         graphics.setFont(font);
 
-        Rectangle2D fontBounds = font.getStringBounds(stickerText, graphics.getFontRenderContext());
-        int StartDrawX = (altura / 2) - (int) Math.floor(fontBounds.getWidth() / 2);
-        int StartDrawY = (int) (novaAltura - (fontBounds.getHeight() - increaseHeight));
 
         // Calculando a posição do texto no sticker
+        Rectangle2D fontBounds = font.getStringBounds(stickerText, graphics.getFontRenderContext());
+        int StartDrawX = (altura / 10) - (int) Math.floor(fontBounds.getWidth() / 9);
+        int StartDrawY = (int) (novaAltura- ( fontBounds.getHeight() - increaseHeight) - 50);
+
         TextLayout textLayout = new TextLayout(stickerText, graphics.getFont(), graphics.getFontRenderContext());
         Shape shape = textLayout.getOutline(null);
-        graphics.setStroke(new BasicStroke(fontSize * 0.15f));
+        graphics.setStroke(new BasicStroke(fontSize * 0.20f));
         graphics.translate(StartDrawX, StartDrawY);
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(Color.RED);
         graphics.draw(shape);
         graphics.setColor(Color.YELLOW);
         graphics.fill(shape);
@@ -78,11 +82,11 @@ public class FabricaDeFigurinhas {
 
     private String getStickerText(Double rating) {
         if (rating > 8) {
-            return "O MELHOR";
+            return "TopZera";
         } else if (rating > 7) {
-            return "TA VALENDO";
+            return "Legal";
         } else {
-            return "MÉÉÉÉÉÉÉ";
+            return "Mééé!";
         }
     }
 
