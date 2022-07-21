@@ -8,13 +8,9 @@ public enum UrlEnum {
     
     // API MOCK TOP CATEGORIAS
     API_MOCK_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
-//    TOP_250_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
-//    TOP_POPULAR_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
-//    TOP_MOST_POPULAR_TV("https://api.mocki.io/v2/549a5d8b/"),
-
 
     //COMPLEMENTO DE URL DA IMAGEM
-    IMAGE_COMPLEMENT("https://image.tmdb.org/t/p/w500");
+    URL_COMP("https://image.tmdb.org/t/p/w500");
 
     private String descricao;
 

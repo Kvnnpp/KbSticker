@@ -1,6 +1,8 @@
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -10,12 +12,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
+import Enum.Cores;
 import Enum.UrlEnum;
 
 public class App {
     public static void main(String[] args) throws Exception {
         
         Properties config = getProp();
+        
 
         //Input category
         Scanner scanner = new Scanner(System.in);
@@ -36,15 +40,16 @@ public class App {
 
 
         var url = "";
-
-        if(category == "MostPopularIntheWeek"){           
+        List<String>apImdb =List.of("MostPopularIntheWeek", "MostPopularDaily");
+        if(!apImdb.contains(category)){
+            url =UrlEnum.API_MOCK_MOVIES.getDescricao() + category;
+        }
+        if(category.contentEquals("MostPopularIntheWeek")){           
         //Acessar o ENUM ApiUrl e pegar a URL com a informação que queremos
         url = UrlEnum.WEEK_TRENDING_TOP.getDescricao() + config.get("key");
         }
-        if(category == "MostPopularDaily"){
-            url = UrlEnum.WEEK_TRENDING_TOP.getDescricao() + config.get("key");
-        }else{
-            url =UrlEnum.API_MOCK_MOVIES.getDescricao() + category;
+        if(category .contentEquals("MostPopularDaily")){
+            url = UrlEnum.DAILY_TRENDING_TOP.getDescricao() + config.get("key");
         }
         
         var client = HttpClient.newHttpClient();        
@@ -55,18 +60,31 @@ public class App {
         String body = response.body();
 
         // exibir e manipular os dados
-        if(category == "MostPopularIntheWeek" || category == "MostPopularDaily"){
+
+        var geradora = new FabricaDeFigurinhas();
+        String urlImagem = "";
+        String titulo = "";
+        String Rating = "";
+
+        if(apImdb.contains(category)){
         //extrai so os dados que interessam ( titulo, poster, Classificacao)
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
-
         for (Map<String,String> filme : listaDeFilmes) {
-            System.out.println("\u001b[46;1mTítulo: \u001b[0m " + "\u001b[38;2;255;255;255m \u001b[48;2;42;122;228m" + filme.get("title") +"\u001b[m" );
-            System.out.println("\u001b[44;1mPoster: " + "\u001b[0m" + UrlEnum.IMAGE_COMPLEMENT.getDescricao() +filme.get("backdrop_path"));
-            String Rating = filme.get("vote_average");
+
+            urlImagem =(UrlEnum.URL_COMP.getDescricao() + filme.get("backdrop_path"));
+            titulo = filme.get("title");
+            Rating = filme.get("vote_average");
+        
+            InputStream inputStream = new URL(urlImagem).openStream();
+            String nomeArquivo = titulo;
+            geradora.cria(inputStream, nomeArquivo, Rating);
+
+            System.out.println(Cores.CYAN+"Título: " + Cores.FIM +Cores.BLUE+ titulo +Cores.FIM);
+            System.out.println(Cores.MAGENTA +"1mPoster: " +Cores.FIM + urlImagem);
             Double RatingDouble = Double.parseDouble(Rating);
             long roundedRating = Math.round(RatingDouble);
-            System.out.println("\u001b[46;1mClassificação: " + "\u001b[0m" + filme.get("vote_average"));
+            System.out.println(Cores.CYAN + "Classificação: " + Cores.FIM + Rating);
             for (int i = 0; i < roundedRating; i++) {
                 System.out.print("\u2b50");
             }
@@ -78,12 +96,21 @@ public class App {
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
 
         for (Map<String, String> filme : listaDeFilmes) {
-           System.out.println(filme.get("title"));
-           System.out.println(filme.get("image"));
-           String Rating = filme.get("imDbRating");
+
+            urlImagem = filme.get("image");
+            titulo = filme.get("title");
+            Rating = filme.get("imDbRating");
+        
+            InputStream inputStream = new URL(urlImagem).openStream();
+            String nomeArquivo = titulo;
+            geradora.cria(inputStream, nomeArquivo, Rating);
+
+           System.out.println(Cores.CYAN + "Titulo: " + Cores.FIM + Cores.GREEN + titulo + Cores.FIM);
+           System.out.println(Cores.MAGENTA + "Capa: " + Cores.FIM + urlImagem );
+
             Double RatingDouble = Double.parseDouble(Rating);
             long roundedRating = Math.round(RatingDouble);
-            System.out.println("\u001b[46;1mClassificação: " + "\u001b[0m" + filme.get("imDbRating"));
+            System.out.println(Cores.CYAN +"Classificação: " + Cores.FIM + Rating);
             for (int i = 0; i < roundedRating; i++) {
                 System.out.print("\u2b50");
             }
