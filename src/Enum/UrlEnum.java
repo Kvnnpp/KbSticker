@@ -10,7 +10,7 @@ public enum UrlEnum {
     API_MOCK_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
 
     //COMPLEMENTO DE URL DA IMAGEM
-    IMAGE_COMPLEMENT("https://image.tmdb.org/t/p/w500");
+    URL_COMP("https://image.tmdb.org/t/p/w500");
 
     private String descricao;
 

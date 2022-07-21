@@ -60,17 +60,31 @@ public class App {
         String body = response.body();
 
         // exibir e manipular os dados
+
+        var geradora = new FabricaDeFigurinhas();
+        String urlImagem = "";
+        String titulo = "";
+        String Rating = "";
+
         if(apImdb.contains(category)){
         //extrai so os dados que interessam ( titulo, poster, Classificacao)
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
         for (Map<String,String> filme : listaDeFilmes) {
-            System.out.println(Cores.CYAN+"Título: " + Cores.FIM +Cores.BLUE+ filme.get("title") +Cores.FIM);
-            System.out.println(Cores.MAGENTA +"1mPoster: " +Cores.FIM + UrlEnum.IMAGE_COMPLEMENT.getDescricao() +filme.get("backdrop_path"));
-            String Rating = filme.get("vote_average");
+
+            urlImagem =(UrlEnum.URL_COMP.getDescricao() + filme.get("backdrop_path"));
+            titulo = filme.get("title");
+            Rating = filme.get("vote_average");
+        
+            InputStream inputStream = new URL(urlImagem).openStream();
+            String nomeArquivo = titulo;
+            geradora.cria(inputStream, nomeArquivo, Rating);
+
+            System.out.println(Cores.CYAN+"Título: " + Cores.FIM +Cores.BLUE+ titulo +Cores.FIM);
+            System.out.println(Cores.MAGENTA +"1mPoster: " +Cores.FIM + urlImagem);
             Double RatingDouble = Double.parseDouble(Rating);
             long roundedRating = Math.round(RatingDouble);
-            System.out.println(Cores.CYAN + "Classificação: " + Cores.FIM + filme.get("vote_average"));
+            System.out.println(Cores.CYAN + "Classificação: " + Cores.FIM + Rating);
             for (int i = 0; i < roundedRating; i++) {
                 System.out.print("\u2b50");
             }
@@ -81,13 +95,11 @@ public class App {
         var parser = new JsonParserToMock();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
 
-        var geradora = new FabricaDeFigurinhas();
-
         for (Map<String, String> filme : listaDeFilmes) {
 
-            String urlImagem = filme.get("image");
-            String titulo = filme.get("title");
-            String Rating = filme.get("imDbRating");
+            urlImagem = filme.get("image");
+            titulo = filme.get("title");
+            Rating = filme.get("imDbRating");
         
             InputStream inputStream = new URL(urlImagem).openStream();
             String nomeArquivo = titulo;
