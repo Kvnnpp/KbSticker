@@ -61,7 +61,6 @@ public class App {
 
         // exibir e manipular os dados
 
-        // var geradora = new FabricaDeFigurinhas();
         var gera = new GeradoraDeFigurinhas();
         String urlImagem = "";
         String titulo = "";
@@ -79,7 +78,6 @@ public class App {
         
             InputStream inputStream = new URL(urlImagem).openStream();
             String nomeArquivo = titulo;
-            // geradora.cria(inputStream, nomeArquivo, Rating);
             gera.gera(inputStream,nomeArquivo,Rating);
 
             System.out.println(Cores.CYAN+"Título: " + Cores.FIM +Cores.BLUE+ titulo +Cores.FIM);
@@ -105,7 +103,6 @@ public class App {
         
             InputStream inputStream = new URL(urlImagem).openStream();
             String nomeArquivo = titulo;
-            // geradora.cria(inputStream, nomeArquivo, Rating);
             gera.gera(inputStream,nomeArquivo,Rating);
 
            System.out.println(Cores.CYAN + "Titulo: " + Cores.FIM + Cores.GREEN + titulo + Cores.FIM);
