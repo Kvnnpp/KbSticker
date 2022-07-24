@@ -1,3 +1,4 @@
+package service;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -92,6 +93,12 @@ public class GeradoraDeFigurinhas {
 
         private String[] textoImagemPorNota(String Rating) {
                 String[] retorno = new String[2];
+
+                if (Rating == "0" ) {
+                        retorno[0] = "Gostei";
+                        retorno[1] = "images/top.png";
+                        return retorno;
+                }
 
                 if (Double.parseDouble(Rating) > 8) {
                         retorno[0] = "Gostei";

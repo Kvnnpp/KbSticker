@@ -1,4 +1,4 @@
-package Enum;
+package endpoint;
 public enum Cores {
 
 
