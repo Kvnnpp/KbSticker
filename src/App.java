@@ -21,7 +21,7 @@ public class App {
 
         //Input category
         Scanner scanner = new Scanner(System.in);
-        List<String> categories = List.of("nasa","MostPopularMovies", "Top250Movies", "MostPopularTVs", "Top250TVs","MostPopularIntheWeek","MostPopularDaily");
+        List<String> categories = List.of("nasa","MostPopularMovies", "Top250Movies", "MostPopularTVs", "Top250TVs");
         System.out.println("Selecione uma categoria entre: " + String.join(", ", categories));
         String category= scanner.nextLine();
         // Validacao de categoria
