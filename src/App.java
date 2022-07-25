@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import endpoint.Cores;
 import endpoint.UrlEnum;
+import extratores.ExtratorDeConteudoDaNasa;
 import extratores.ExtratorDeConteudoDoIMDB;
 import model.Conteudo;
 import service.ClienteHttp;
@@ -16,7 +17,7 @@ import service.GeradoraDeFigurinhas;
 public class App {
     public static void main(String[] args) throws Exception {
         
-        Properties config = getProp();
+        // Properties config = getProp();
         
 
         //Input category
@@ -37,6 +38,7 @@ public class App {
 
         var url = "";
         List<String>apImdb =List.of("nasa");
+
         if(!apImdb.contains(category)){
             url =UrlEnum.API_MOCK_MOVIES.getDescricao() + category;
         }
@@ -57,22 +59,22 @@ public class App {
         List<Conteudo> conteudos = extrator.extraiConteudos(json);
         var gera = new GeradoraDeFigurinhas();
 
-        for (int i = 0; i<3; i++){
+        for (int i = 0; i<7; i++){
 
             Conteudo conteudo = conteudos.get(i);
 
-            InputStream inputStream = new URL(conteudo.getUrlImagem()).openStream();
-            String nomeArquivo = conteudo.getTitulo();
-            String rating = conteudo.getRating();
+            InputStream inputStream = new URL(conteudo.urlImagem()).openStream();
+            String nomeArquivo = conteudo.titulo();
+            String rating = conteudo.rating();
 
             gera.gera(inputStream,nomeArquivo,rating);
 
-           System.out.println(Cores.CYAN + "Titulo: " + Cores.FIM + Cores.GREEN + conteudo.getTitulo() + Cores.FIM);
-           System.out.println(Cores.MAGENTA + "Capa: " + Cores.FIM + conteudo.getUrlImagem() );
+           System.out.println(Cores.CYAN + "Titulo: " + Cores.FIM + Cores.GREEN + conteudo.titulo() + Cores.FIM);
+           System.out.println(Cores.MAGENTA + "Capa: " + Cores.FIM + conteudo.urlImagem() );
 
             Double RatingDouble = Double.parseDouble(rating);
             long roundedRating = Math.round(RatingDouble);
-            System.out.println(Cores.CYAN +"Classificação: " + Cores.FIM + conteudo.getRating());
+            System.out.println(Cores.CYAN +"Classificação: " + Cores.FIM + conteudo.rating());
             for (int estrelas = 0; estrelas < roundedRating; estrelas++) {
                 System.out.print(Cores.STAR);
             }

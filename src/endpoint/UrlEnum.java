@@ -1,4 +1,7 @@
 package endpoint;
+
+import model.DataAtual;
+
 public enum UrlEnum {
 
     // api THE MOVIEDB
@@ -10,7 +13,7 @@ public enum UrlEnum {
     API_MOCK_MOVIES("https://api.mocki.io/v2/549a5d8b/"),
 
     //API DA NASA
-    API_NASA("https://api.nasa.gov/planetary/apod?api_key=lQG2KP7vF6vP23bmvAgDbaiB615QOy5UkRPyhswy&start_date=2022-07-20&end_date=2022-07-23"),
+    API_NASA("https://api.nasa.gov/planetary/apod?api_key=lQG2KP7vF6vP23bmvAgDbaiB615QOy5UkRPyhswy&start_date="+DataAtual.getSeteDiasAntes()+"&end_date="+DataAtual.getHoje()),
 
     //COMPLEMENTO DE URL DA IMAGEM
     URL_COMP("https://image.tmdb.org/t/p/w500");
