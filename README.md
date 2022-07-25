@@ -8,6 +8,7 @@
 
 - `Funcionalidade 1`: Acesso a apis para extração de imagens dos filmes e seriados atuais e outros!
 - `Funcionalidade 2`: Tratamento da imagem e adição de legenda conforme a nota do filme ou seriado!
+- `Funcionalidade 3`: Busca imagens da Nasa para adicionar ao pacote de figurinhas!
 
 <h1 align ="center"> Desenvolvendo formas divertidas de gerar Sticker de Watsapp dos seus filmes preferidos! </n1> 
 
@@ -18,5 +19,9 @@
 <h1 align ="center"> AULA 02 - GERANDO FIGURINHAS PARA WHATSAPP #Alura </n1>
 
 ![image](https://user-images.githubusercontent.com/82380632/180274004-eb447443-6f4f-4ce8-b247-6b207c5aaa67.png)
+
+
+<h1 align ="center"> AULA 03 - LIGANDO AS PONTAS, REFATORAÇÃO E ORIENTAÇÃO A OBJETOS #Alura  </n1>
+
 
 </p>
